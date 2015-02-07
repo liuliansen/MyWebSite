@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>	
+	<sql_group name="getAllUsers">
+		<sql>SELECT * FROM `Admins`</sql>
+		<has_where>0</has_where>
+		<options>
+			<option link="AND" name=":UserID">
+				UserID = :UserID
+			</option>
+			<option link="OR" name=":Account_IN">
+				Account IN (:Account_IN)
+			</option>
+			<option link="OR" name=":Account">
+				Account = :Account
+			</option>
+		</options>
+		<description>获取所有管理员记录</description>
+	</sql_group>	
+	
+	<sql_group name="getUserByID">
+		<sql>SELECT * FROM `Admins`</sql>
+		<has_where>1</has_where>
+		<options>
+			<option link="AND" name=":UserID">
+				UserID = :UserID
+			</option>
+		</options>
+		<description>获取所有管理员记录</description>
+	</sql_group>
+	
+	<sql_group name="getUserByAccount">
+		<sql>SELECT * FROM `Admins` WHERE Account = :Account LIMIT 1</sql>
+		<has_where>1</has_where>
+		<options></options>
+		<description>获取指定账号的管理员记录</description>
+	</sql_group>
+	
+	<sql_group name="updUserLoginInfo">
+		<sql>
+			UPDATE `Admins` 
+			SET `LastLoginTime` = :LastLoginTime,
+				`LastLoginIP` = :LastLoginIP 
+			WHERE UserID = :UserID
+		</sql>
+		<has_where>1</has_where>
+		<options></options>
+		<description>更新用户的最后登录时间和ip</description>
+	</sql_group>
+	
+</data>
