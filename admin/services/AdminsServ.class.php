@@ -61,12 +61,9 @@ class AdminsServ extends Service {
      */
     public function updUserLoginInfo($userID,$time,$ip){     
         return $this->execute('updUserLoginInfo','update', array(
-            ':UserID' => '\'\' or 1',
-            ':LastLoginTime' => NULL,
-            ':LastLoginIP' => ''  
+            ':UserID' => $userID,
+            ':LastLoginTime' => $time,
+            ':LastLoginIP' => $ip  
         ));
     }
-    
-    
-    
 }
