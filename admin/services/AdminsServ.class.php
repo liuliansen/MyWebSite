@@ -4,10 +4,8 @@ use services\UuidServ as UuidServ;
 
 class AdminsServ extends Service {
     public function __construct(){
-        include_once APP_PATH .'includes/sql/Admins.inc.php';
         parent::__construct();
         $this->tabName = 'Admins';
-        $this->sql = $GLOBALS['SQL']['Admins'];
     }
     
     
@@ -25,11 +23,50 @@ class AdminsServ extends Service {
                 ':Account'  => 'liansen',
                 ':PassWord' => md5(123456)
             );
-            $rs = $this->execute( 'createUser' , $params);
+            $rs = $this->execute( 'createUser','insert' , $params);
             if($rs === false) throw $this->getErrorInfo();         
             return true;
         }catch (\Exception $e){
             throw $e;
         }
-    }    
+    }
+    
+    
+    public function getAllUsers(){
+        $params = array(
+            'orderby' => 'UserID DESC'
+        );
+        return $this->execute('getAllUsers', 'getAll',$params);
+    }
+    
+    
+    /**
+     * 获取指定account的用户记录
+     * @param string $account
+     * @return array
+     */
+    public function getUserByAccount($account){
+        return $this->execute('getUserByAccount', 'getRow' , array(
+            ':Account' => $account
+        ));
+    }
+
+
+    /**
+     * 更新用户的最后登录时间和ip
+     * @param string $userID
+     * @param string $time
+     * @param string $ip
+     * @return int
+     */
+    public function updUserLoginInfo($userID,$time,$ip){     
+        return $this->execute('updUserLoginInfo','update', array(
+            ':UserID' => '\'\' or 1',
+            ':LastLoginTime' => NULL,
+            ':LastLoginIP' => ''  
+        ));
+    }
+    
+    
+    
 }

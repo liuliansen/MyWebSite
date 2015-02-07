@@ -5,7 +5,9 @@ class APP{
    static $crlDir = 'controllers/';
     
    static public function start(){
+        header("Content-type: text/html; charset=utf-8");
         session_start();
+    
         //获取需要执行的controller
         $ctrl = 'controllers\\'.self::_getController();
      
@@ -31,7 +33,7 @@ class APP{
    static private function _getController(){
        $ctrl = 'Index';
        if(!isset($_SESSION['UserID']) || trim($_SESSION['UserID']) == ''){
-           $ctrl = 'Index';
+           $ctrl = 'Login';
        }elseif(isset($_REQUEST['ctrl']) && trim($_REQUEST['ctrl']) != ''){
            $ctrl = trim($_REQUEST['ctrl']);
        }
