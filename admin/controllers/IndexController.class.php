@@ -11,4 +11,6 @@ class IndexController extends Controller{
            die("服务器端发生错误,载入失败!");
         }
     }
+    
+    
 }

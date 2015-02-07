@@ -94,7 +94,4 @@ class LoginController extends Controller{
             $_SERVER['REMOTE_ADDR']
         );  
     }
-    
-    
-    
 }
